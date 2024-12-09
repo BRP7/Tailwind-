@@ -2,9 +2,9 @@ import React from "react";
 
 const Portfolio = () => {
   const projects = [
-    { id: 1, title: "Project Alpha", description: "AI-powered solution for modern problems." },
-    { id: 2, title: "Project Beta", description: "A futuristic platform revolutionizing industries." },
-    { id: 3, title: "Project Gamma", description: "Blockchain-driven innovation at its core." },
+    { id: 1, title: "Project Alpha", description: "AI-powered solution for modern problems.AI-powered solution for modern problems.AI-powered solution for modern problems.AI-powered solution for modern problems.AI-powered solution for modern problems." },
+    { id: 2, title: "Project Beta", description: "A futuristic platform revolutionizing industries.A futuristic platform revolutionizing industries.A futuristic platform revolutionizing industries.A futuristic platform revolutionizing industries.A futuristic platform revolutionizing industries.A futuristic platform revolutionizing industries." },
+    { id: 3, title: "Project Gamma", description: "Blockchain-driven innovation at its core.Blockchain-driven innovation at its core.Blockchain-driven innovation at its core.Blockchain-driven innovation at its core.Blockchain-driven innovation at its core.Blockchain-driven innovation at its core." },
   ];
 
   return (
