@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import axios
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +7,8 @@ const Contact = () => {
     email: "",
     message: "",
   });
+
+  const [responseMessage, setResponseMessage] = useState(""); // To store success/error messages
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,10 +18,25 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically handle form submission
-    console.log("Form Submitted:", formData);
+
+    // Sending the form data to the backend using axios
+    try {
+      const response = await axios.post("http://localhost:5000/send-email", formData); // Replace URL with your backend API
+
+      if (response.status === 200) {
+        setResponseMessage("Your message was sent successfully!");
+        // Optionally clear the form
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      setResponseMessage("Failed to send your message. Please try again.");
+    }
   };
 
   return (
@@ -78,6 +96,13 @@ const Contact = () => {
             </button>
           </div>
         </form>
+
+        {/* Display Response Message */}
+        {responseMessage && (
+          <div className="mt-4 text-center text-lg font-semibold text-gray-700">
+            {responseMessage}
+          </div>
+        )}
       </div>
     </div>
   );
