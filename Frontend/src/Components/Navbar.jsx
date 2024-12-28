@@ -382,14 +382,14 @@ function Navbar() {
   return (
 <nav
       className={`w-full z-50 fixed top-0 py-4 px-8 flex justify-center items-center transition-all ${
-        isSticky ? "bg-darkGray/80 backdrop-blur-md shadow-lg" : "bg-transparent"
+        isSticky ? "bg-darkGray/80 backdrop-blur-md shadow-lg" : "bg-transparent text-black"
       }`}
     >      <ul className="flex space-x-6 text-lg">
         {/* About link */}
         <li
           className="transition-all px-4 py-2 rounded"
           style={{
-            textShadow: "0 0 15px #B6EFF0, 0 0 30px #B6EFF0", // Default white glow
+            textShadow: "0 0 15px #d5a0ef, 0 0 30px #d5a0ef", // Default white glow
           }}
         >
           <Link to="/about" className="hover:text-white glow-hover">
@@ -401,7 +401,7 @@ function Navbar() {
         <li
           className="transition-all px-4 py-2 rounded"
           style={{
-            textShadow: "0 0 15px #B6EFF0, 0 0 30px #B6EFF0", // Default white glow
+            textShadow: "0 0 15px #d5a0ef, 0 0 30px #d5a0ef", // Default white glow
           }}
         >
           <Link to="/portfolio" className="hover:text-white glow-hover">
@@ -413,7 +413,7 @@ function Navbar() {
         <li
           className="transition-all px-4 py-2 rounded"
           style={{
-            textShadow: "0 0 15px #B6EFF0, 0 0 30px #B6EFF0", // Default white glow
+            textShadow: "0 0 15px #d5a0ef, 0 0 30px #d5a0ef", // Default white glow
           }}
         >
           <Link to="/contact" className="hover:text-white glow-hover">
@@ -425,7 +425,7 @@ function Navbar() {
         <li
           className="transition-all px-4 py-2 rounded"
           style={{
-            textShadow: "0 0 15px #B6EFF0, 0 0 30px #B6EFF0", // Default white glow
+            textShadow: "0 0 15px #d5a0ef, 0 0 30px #d5a0ef", // Default white glow
           }}
         >
           <Link to="/" className="hover:text-white glow-hover">
