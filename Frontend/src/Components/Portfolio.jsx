@@ -11,11 +11,13 @@ const Portfolio = ({ isVisible }) => {
     <div
       id="portfolio"
       className={`min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden transition-colors duration-700 ${
-        isVisible ? "bg-gradient-to-br from-white to-gray-100" : "bg-gray-100 text-black"
+        isVisible ? "bg-gradient-to-br from-white to-gray-100" : "bg-gray-100"
       }`}
     >
       {/* Header */}
-      <h1 className="text-5xl font-extrabold text-center mb-[24vh] glow-text" style={{ textShadow: "0 0 20px #CDF3FB, 0 0 30px #00d4ff" }}>
+      <h1 className="text-5xl font-bold text-center mb-[24vh] glow-text"   style={{
+    textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)",
+  }}>
         Portfolios
       </h1>
 
@@ -33,11 +35,11 @@ const Portfolio = ({ isVisible }) => {
           >
             {/* Background Blur for Glass Effect */}
             <div className="absolute inset-0 bg-cyan-100/10 blur-lg rounded-2xl z-0"></div>
-            <div className="absolute inset-0 border border-cyan-400 rounded-2xl opacity-50 z-0"></div>
+            <div className="absolute inset-0 border border-[#d5a0ef]  rounded-2xl opacity-50 z-0"></div>
 
             {/* Content */}
             <div className="relative z-10">
-              <h2 className="text-2xl font-bold group-hover:text-cyan-800 transition">
+              <h2 className="text-2xl font-bold group-hover:text-[#d9bae9]  transition">
                 {project.title}
               </h2>
               <p className="mt-2">{project.description}</p>
