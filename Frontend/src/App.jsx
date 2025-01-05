@@ -56,13 +56,15 @@
 
 
 import Landing from "./Components/Landing";
-import Navbar from "./Components/Navbar";
+import Normal from "./Normal";
 import Footer from "./Components/Footer";
 import About from "./Components/About";
 import Portfolio from "./Components/Portfolio";
 // import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Rating from "./Components/Rating";
+import LoginRegisterPage from "./Components/LoginRegisterPage";
+import ProfilePage from "./Components/ProfilePage"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 
@@ -105,21 +107,24 @@ export default function App(){
   return(
     <>
      <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
-        <Route path="/Landing" element={<Landing />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<LoginRegisterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/" element={<Normal />} />
+        {/* <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} /> */}
       </Routes>
     </Router>
-      <Landing/>
+      {/* <Landing/>
       <Portfolio/>
       <Rating testimonials={testimonials} />
       <About/>
-      <Contact/>
-      <Footer/>
-      
+      <Contact/> */}
+      {/* <LoginRegisterPage/> */}
+      {/* <Footer/> */}
     </>
   )
 }
+  
