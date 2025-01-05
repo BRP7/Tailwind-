@@ -77,9 +77,11 @@ const LoginRegisterPage = () => {
       navigate("/profile"); // Redirect to profile page
     }
   } catch (error) {
+    console.log(error);
     setResponseMessage("An error occurred. Please try again.");
   }
 };
+
 
 
   // Function to navigate to the homepage
