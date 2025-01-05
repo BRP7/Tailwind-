@@ -4,6 +4,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"], // Update with your file paths
   theme: {
     extend: {
+      fontFamily: {
+        space: ["'Space Grotesk'", "sans-serif"], // Add your custom font
+      },
       animation: {
         pulse: "pulse 2s infinite",
       },
@@ -30,12 +33,20 @@ module.exports = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
+        // ".glass-border": {
+        //   border: "2px solid rgba(255, 255, 255, 0.2)",
+        // },
         ".glass-border": {
-          border: "2px solid rgba(255, 255, 255, 0.2)",
-        },
+  border: "2px solid rgba(128, 0, 128, 0.5)",
+},
+
         ".glow-shadow": {
-          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 255, 255, 0.5)",
-        },
+  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(128, 0, 128, 0.5)",
+},
+
+        // ".glow-shadow": {
+        //   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 255, 255, 0.5)",
+        // },
       });
     }),
   ],
