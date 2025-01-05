@@ -37,7 +37,7 @@ const validatePassword = (password) => password.length >= 6; // Minimum password
 //     await newUser.save();
 
 //     // Create JWT token
-//     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+//     const token = jwt.sign({ userId: newUser._id }, process.env.JSON_SECRET, { expiresIn: "1h" });
 
 //     // Send response with the token
 //     res.status(201).json({
@@ -74,7 +74,7 @@ const validatePassword = (password) => password.length >= 6; // Minimum password
 //     }
 
 //     // Create JWT token
-//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+//     const token = jwt.sign({ userId: user._id }, process.env.JSON_SECRET, { expiresIn: "1h" });
 
 //     res.status(200).json({
 //       message: "Login successful!",
@@ -162,7 +162,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
 
     // Create JWT token
-    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: newUser._id }, process.env.JSON_SECRET, { expiresIn: "1h" });
 
     // Send response with the token
     res.status(201).json({
@@ -201,13 +201,82 @@ router.post("/login", async (req, res) => {
 
     // Create JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JSON_SECRET, { expiresIn: "1h" });
-
+    console.log(token)
     res.status(200).json({
       message: "Login successful!",
       token,
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+const authenticateToken = (req, res, next) => {
+  const token = req.header("Authorization");
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  // Verify the token
+  jwt.verify(token, process.env.JSON_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: "Invalid or expired token" });
+    }
+
+    // Attach the decoded user ID to the request object
+    req.userId = decoded.userId;
+    next(); // Proceed to the next middleware/route handler
+  });
+};
+
+// router.get("/profile", authenticateToken, async (req, res) => {
+//   try {
+//     // Find the user by the decoded userId
+//     const user = await User.findById(req.userId).select("-password");
+//     console.log(user);
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Send the user's profile data
+//     res.status(200).json({
+//       name: user.name,
+//       email: user.email,
+//       createdAt: user.createdAt, // Optional: Date the user joined
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  if (!token) {
+    return res.status(403).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JSON_SECRET);
+    req.userId = decoded.userId;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+router.get("/profile", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 });
