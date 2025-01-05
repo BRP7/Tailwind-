@@ -9,7 +9,7 @@ const projectSchema = new mongoose.Schema(
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: true,  // A Project must have a client (user)
     },
     image: {
       type: String,

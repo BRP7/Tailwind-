@@ -4,24 +4,24 @@ const reviewSchema = new mongoose.Schema(
   {
     image: {
       type: String,
-      required: true,
+      required: false,  // Image is optional
     },
     projectName: {
       type: String,
-      required: true,
+      required: false,  // Project name is optional, as it can be fetched from the project
     },
     rating: {
-      type: String,  // Could be numeric, or use an enum for ratings
-      required: true,
+      type: Number,  // Rating should be numeric
+      required: true,  // Rating is required
     },
     feedback: {
       type: String,
-      required: true,
+      required: true,  // Feedback is required
     },
     project: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
-      required: true,
+      required: true,  // A Review must be linked to a Project
     },
   },
   { timestamps: true }
