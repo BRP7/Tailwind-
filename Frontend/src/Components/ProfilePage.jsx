@@ -14,7 +14,10 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log('token',token)
+    console.log('token',(!token))
     if (!token) {
+      console.log(5678);
       navigate("/login");
       return;
     }
@@ -43,6 +46,7 @@ const ProfilePage = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             params: { userId: userData._id },
           });
+          console.log(response.data);
           setProjects(response.data);
         } catch (error) {
           console.error("Error fetching user projects:", error);
@@ -123,18 +127,18 @@ const ProfilePage = () => {
           &times;
         </button>
 
-        <h1 className="text-4xl font-extrabold text-center text-[#787C97] mb-4">Profile</h1>
-        <p className="text-lg leading-relaxed text-center mb-8 text-[#9ca3af]">Welcome back! Here's your profile and projects.</p>
+        <h1 className="text-5xl font-extrabold text-center text-[#ba87d3] mb-4">Profile</h1>
+        <p className="text-lg leading-relaxed text-center mb-16 text-[#9ca3af]">Welcome back! Here's your profile and projects.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Left side: User Profile */}
-          <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-gray-50 rounded-lg shadow-lg">
+          <div className="flex flex-col items-center justify-center space-y-4 p-6 rounded-lg shadow-lg">
             <img
               src={userData.profileImage || "https://via.placeholder.com/150"}
               alt="User Profile"
               className="rounded-full w-32 h-32 object-cover glow-shadow "
             />
-            <h2 className="text-2xl font-bold text-[#787C97]">{userData.name}</h2>
+            <h2 className="text-2xl font-bold text-[#D5A0EF]">{userData.name}</h2>
             <p className="text-md text-[#9ca3af]">{userData.email}</p>
             <p className="text-md text-[#9ca3af]">Member since: {new Date(userData.createdAt).toLocaleDateString()}</p>
           </div>
@@ -143,12 +147,12 @@ const ProfilePage = () => {
         {/* Right side: Projects */}
   {projects.length > 0 ? (
 <div className="col-span-2 sm:col-span-1">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <h2 className="text-3xl font-semibold text-[#D5A0EF] mb-6">Projects</h2>
-      {projects.map((project) => (
-        <div key={project._id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105">
-          <h3 className="text-xl font-semibold text-[#D5A0EF] mb-4">{project.name}</h3>
-          <p className="text-gray-600 mb-4">{project.description}</p>
+    <div className="grid grid-cols-1  gap-2">
+    <h2 className="text-[1.6rem] font-semibold bg-white text-[#a9b0bc] rounded-lg p-2 mb-2">Projects</h2>
+    {projects.map((project) => (
+        <div key={project._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
+          <h3 className="text-xl font-semibold text-[#ba87d3] mb-4">{project.projectName}</h3>
+          <p className="text-[#9ca3af] mb-4">{project.description}</p>
           <button
             onClick={() => openReviewModal(project)}
             className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"

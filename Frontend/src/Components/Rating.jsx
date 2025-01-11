@@ -4,6 +4,8 @@ import axios from "axios";  // Import axios
 import "./Rating.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaStar, FaRegStar } from "react-icons/fa"; // Importing FontAwesome stars
+
 
 const Rating = () => {
   const [testimonials, setTestimonials] = useState([]);  // Store the fetched reviews
@@ -27,22 +29,37 @@ const Rating = () => {
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);  // Full stars
     const emptyStars = 5 - fullStars;  // Remaining empty stars
-
+  
     return (
-      <>
-        {Array(fullStars)
-          .fill("⭐")
-          .map((star, index) => (
-            <span key={`full-${index}`} className="star full">{star}</span>
-          ))}
-        {Array(emptyStars)
-          .fill("☆")
-          .map((star, index) => (
-            <span key={`empty-${index}`} className="star empty">{star}</span>
-          ))}
-      </>
+      <div className="flex items-center justify-center">
+        {/* Render filled stars (purple color) */}
+        {Array.from({ length: fullStars }).map((_, index) => (
+          <FaStar
+            key={`full-${index}`}
+            style={{
+              color: "#d9bae9",
+              fontSize: "20px",
+              marginRight: "5px",
+            }}
+          />
+        ))}
+        
+        {/* Render empty stars (light gray color) */}
+        {Array.from({ length: emptyStars }).map((_, index) => (
+          <FaRegStar
+            key={`empty-${index}`}
+            style={{
+              color: "#D3D3D3", // Light gray color for empty stars
+              fontSize: "20px", // Font size of stars
+              marginRight: "5px", // Space between stars
+            }}
+          />
+        ))}
+      </div>
     );
   };
+  
+
 
   const settings = {
     dots: true,
@@ -55,7 +72,7 @@ const Rating = () => {
 
   return (
     <div
-      className="min-h-screen justify-center m-8 p-8"
+      className="min-h-screen justify-center m-2 p-8"
       style={{
         textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.2)",
       }}
@@ -95,13 +112,14 @@ const Rating = () => {
                 <div className="flex justify-center items-center">
                   <img
                     className="rounded-full glow-shadow"
-                    src={testimonial.client?.image || "default-image-path"}  // Assuming client has an image
+                    // src={testimonial.client?.image || "default-image-path"}  // Assuming client has an image
+                    src={ "../public/image.png"}  // Assuming client has an image
                     alt={testimonial.projectName}
                   />
                 </div>
-                <h2>{testimonial.projectName}</h2>
+                <h2 className="text-xl md:text-2xl font-bold">{testimonial.projectName}</h2>
                 <p>{renderStars(testimonial.rating)}</p>
-                <p>"{testimonial.feedback}"</p>
+                <p className="text-sm md:text-base">{testimonial.feedback}</p>
               </div>
             ))}
           </Slider>
