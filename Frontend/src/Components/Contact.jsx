@@ -45,18 +45,23 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="min-h-screen flex items-center justify-center p-8"
+      className="h-auto flex items-center justify-center py-4 sm:py-8"
     >
-      <div className="max-w-5xl w-full p-12 rounded-3xl shadow-xl border border-gray-200 glow-shadow relative">
-        <h1 className="main-heading-glow text-5xl font-extrabold text-center mb-6 glow-text"  style={{textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.7)"}}>
+      <div className="max-w-5xl w-full px-6 sm:px-12 py-8 rounded-3xl shadow-xl border border-gray-200 glow-shadow relative">
+        <h1
+          className="text-4xl sm:text-5xl font-extrabold text-center mb-4 sm:mb-6 glow-text"
+          style={{
+            textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.7)",
+          }}
+        >
           Contact NxtSite
         </h1>
-        <p className="text-lg leading-relaxed text-center  mb-8">
+        <p className="text-base sm:text-lg leading-relaxed text-center mb-6 sm:mb-8">
           We’re here to help you create the perfect portfolio website. Reach out to us with your ideas or questions!
         </p>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <input
               type="text"
@@ -64,7 +69,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full p-4 rounded-xl bg-[#e1dde8]  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
+              className="w-full p-3 sm:p-4 rounded-xl bg-[#e1dde8] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
               required
             />
           </div>
@@ -75,7 +80,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full p-4 rounded-xl bg-[#e1dde8]  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
+              className="w-full p-3 sm:p-4 rounded-xl bg-[#e1dde8] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
               required
             />
           </div>
@@ -85,15 +90,15 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Your Message"
-              className="w-full p-4 rounded-xl bg-[#e1dde8]   placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
+              className="w-full p-3 sm:p-4 rounded-xl bg-[#e1dde8] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
               required
             />
           </div>
 
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-6 sm:mt-8">
             <button
               type="submit"
-              className="px-8 py-4 bg-[#d9bae9] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-[#d9bae9] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
             >
               Send Message
             </button>
@@ -102,7 +107,7 @@ const Contact = () => {
 
         {/* Display Response Message */}
         {responseMessage && (
-          <div className="mt-4 text-center text-lg font-semibold ">
+          <div className="mt-4 text-center text-lg font-semibold">
             {responseMessage}
           </div>
         )}

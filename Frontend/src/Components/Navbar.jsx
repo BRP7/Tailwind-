@@ -450,8 +450,100 @@
 
 // export default Navbar;
 
+// import React, { useState, useEffect } from "react";
+// import { Link } from "react-router-dom";
+
+// function Navbar() {
+//   const [isSticky, setIsSticky] = useState(false);
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to check login status
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setIsSticky(window.scrollY > 50);
+//     };
+
+//     window.addEventListener("scroll", handleScroll);
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     // Check if the user is logged in by looking for a token in localStorage
+//     const token = localStorage.getItem("token");
+//     console.log(token);
+//     setIsLoggedIn(token);
+//   }, []);
+
+//   return (
+//     <nav
+//       className={`w-full z-50 fixed top-0 ${
+//         isSticky ? "bg-darkGray/80 backdrop-blur-md shadow-lg" : "bg-darkGray/80"
+//       } text-lightGray py-4 px-6 flex items-center justify-between transition-all`}
+//     >
+//       {/* Centered Navbar Menu */}
+//       <ul className="flex space-x-6 md:space-x-8 lg:space-x-12 text-sm md:text-base lg:text-lg ml-auto">
+//         <li
+//           style={{
+//             textShadow: "0 0 15px #FCFDF8, 0 0 30px #FCFDF8",
+//           }}
+//           className="transition-all hover:text-white px-2"
+//         >
+//           <Link to="/about">About</Link>
+//         </li>
+//         <li
+//           style={{
+//             textShadow: "0 0 15px #FCFDF8, 0 0 30px #FCFDF8",
+//           }}
+//           className="transition-all hover:text-white px-2"
+//         >
+//           <Link to="/portfolio">Portfolio</Link>
+//         </li>
+//         <li
+//           style={{
+//             textShadow: "0 0 15px #FCFDF8, 0 0 30px #FCFDF8",
+//           }}
+//           className="transition-all hover:text-white px-2"
+//         >
+//           <Link to="/contact">Contact</Link>
+//         </li>
+//         <li
+//           style={{
+//             textShadow: "0 0 15px #FCFDF8, 0 0 30px #FCFDF8",
+//           }}
+//           className="transition-all hover:text-white px-2"
+//         >
+//           <Link to="/">Home</Link>
+//         </li>
+//       </ul>
+
+//       {/* Login/Profile Icon */}
+//       <div className="ml-auto">
+//         {isLoggedIn ? (
+//           <Link
+//             to="/profile"
+//             className="text-lg hover:text-white transition-colors"
+//             aria-label="Profile"
+//           >
+//             <i className="fas fa-user-circle hover:shadow-xl hover:shadow-[#d9bae9]"></i>
+//           </Link>
+//         ) : (
+//           <Link
+//             to="/login"
+//             className="text-lg hover:text-white transition-colors"
+//             aria-label="Login"
+//           >
+//             <i className="fas fa-sign-in-alt hover:shadow-xl hover:shadow-[#d9bae9]"></i>
+//           </Link>
+//         )}
+//       </div>
+//     </nav>
+//   );
+// }
+
+// export default Navbar;
+
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
@@ -471,17 +563,15 @@ function Navbar() {
   useEffect(() => {
     // Check if the user is logged in by looking for a token in localStorage
     const token = localStorage.getItem("token");
-    console.log(token);
     setIsLoggedIn(token);
   }, []);
 
   return (
     <nav
       className={`w-full z-50 fixed top-0 ${
-        isSticky ? "bg-darkGray/80 backdrop-blur-md shadow-lg" : "bg-darkGray/80"
+        isSticky ? "bg-darkGray/80 backdrop-blur-md shadow-lg text-gray-700" : "bg-darkGray/80"
       } text-lightGray py-4 px-6 flex items-center justify-between transition-all`}
     >
-      {/* Centered Navbar Menu */}
       <ul className="flex space-x-6 md:space-x-8 lg:space-x-12 text-sm md:text-base lg:text-lg ml-auto">
         <li
           style={{
@@ -489,7 +579,7 @@ function Navbar() {
           }}
           className="transition-all hover:text-white px-2"
         >
-          <Link to="/about">About</Link>
+          <a href="#about">About</a>
         </li>
         <li
           style={{
@@ -497,7 +587,7 @@ function Navbar() {
           }}
           className="transition-all hover:text-white px-2"
         >
-          <Link to="/portfolio">Portfolio</Link>
+          <a href="#portfolio">Portfolio</a>
         </li>
         <li
           style={{
@@ -505,7 +595,7 @@ function Navbar() {
           }}
           className="transition-all hover:text-white px-2"
         >
-          <Link to="/contact">Contact</Link>
+          <a href="#contact">Contact</a>
         </li>
         <li
           style={{
@@ -513,28 +603,19 @@ function Navbar() {
           }}
           className="transition-all hover:text-white px-2"
         >
-          <Link to="/">Home</Link>
+          <a href="#home">Home</a>
         </li>
       </ul>
 
-      {/* Login/Profile Icon */}
       <div className="ml-auto">
         {isLoggedIn ? (
-          <Link
-            to="/profile"
-            className="text-lg hover:text-white transition-colors"
-            aria-label="Profile"
-          >
+          <a href="/profile" className="text-lg hover:text-white transition-colors">
             <i className="fas fa-user-circle hover:shadow-xl hover:shadow-[#d9bae9]"></i>
-          </Link>
+          </a>
         ) : (
-          <Link
-            to="/login"
-            className="text-lg hover:text-white transition-colors"
-            aria-label="Login"
-          >
+          <a href="/login" className="text-lg hover:text-white transition-colors">
             <i className="fas fa-sign-in-alt hover:shadow-xl hover:shadow-[#d9bae9]"></i>
-          </Link>
+          </a>
         )}
       </div>
     </nav>
@@ -542,6 +623,5 @@ function Navbar() {
 }
 
 export default Navbar;
-
 
 

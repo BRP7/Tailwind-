@@ -9,15 +9,13 @@ const ProfilePage = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);  // To track if the user is editing the review
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log('token',token)
-    console.log('token',(!token))
     if (!token) {
-      console.log(5678);
       navigate("/login");
       return;
     }
@@ -31,7 +29,6 @@ const ProfilePage = () => {
       } catch (error) {
         setError("Failed to fetch user data.");
         navigate("/login");
-        console.error("Error fetching user data:", error);
       }
     };
 
@@ -46,7 +43,6 @@ const ProfilePage = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             params: { userId: userData._id },
           });
-          console.log(response.data);
           setProjects(response.data);
         } catch (error) {
           console.error("Error fetching user projects:", error);
@@ -65,6 +61,45 @@ const ProfilePage = () => {
     setRating(newRating);
   };
 
+  // const handleSubmitReview = async () => {
+  //   if (reviewText.trim() === "") {
+  //     alert("Please write a review before submitting.");
+  //     return;
+  //   }
+  //   if (rating === 0) {
+  //     alert("Please give a rating before submitting.");
+  //     return;
+  //   }
+
+  //   try {
+  //     if (isEditing) {
+  //       // Update existing review
+  //       await axios.put(
+  //         `http://localhost:5000/api/projects/${selectedProject._id}/review`,
+  //         { reviewText, rating },
+  //         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+  //       );
+  //     } else {
+  //       // Add new review
+  //       await axios.post(
+  //         `http://localhost:5000/api/projects/${selectedProject._id}/review`,
+  //         { reviewText, rating },
+  //         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+  //       );
+  //     }
+
+  //     setReviewModal(false);
+  //     alert(isEditing ? "Review updated successfully!" : "Review submitted successfully!");
+  //     setReviewText("");
+  //     setRating(0);
+  //     setIsEditing(false); // Reset editing mode after submission
+  //   } catch (error) {
+  //     console.error("Error submitting review:", error);
+  //     alert("There was an error submitting your review.");
+  //   }
+  // };
+
+
   const handleSubmitReview = async () => {
     if (reviewText.trim() === "") {
       alert("Please write a review before submitting.");
@@ -74,25 +109,51 @@ const ProfilePage = () => {
       alert("Please give a rating before submitting.");
       return;
     }
-
+  
     try {
-      await axios.post(
-        `http://localhost:5000/api/projects/${selectedProject._id}/review`,
-        { reviewText, rating },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      );
-      setReviewModal(false); // Close modal after review submission
-      alert("Review submitted successfully!");
+      let response; 
+      if (isEditing && selectedProject.reviews && selectedProject.reviews.length > 0) {
+        // Update existing review
+        console.log(selectedProject.reviews[0]._id);  // Make sure this is a valid ID
+
+        response = await axios.put(
+          `http://localhost:5000/api/projects/reviews/${selectedProject.reviews[0]._id}`,
+          { feedback: reviewText, rating },
+          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        );
+        
+      } else {
+        // Add new review
+        response = await axios.post(
+          `http://localhost:5000/api/projects/${selectedProject._id}/review`,
+          { reviewText, rating },
+          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        );
+      }
+  
+      setReviewModal(false);
+      alert(isEditing ? "Review updated successfully!" : "Review submitted successfully!");
       setReviewText("");
-      setRating(0); // Reset rating after submission
+      setRating(0);
+      setIsEditing(false); // Reset editing mode after submission
     } catch (error) {
       console.error("Error submitting review:", error);
       alert("There was an error submitting your review.");
     }
   };
-
+  
   const openReviewModal = (project) => {
     setSelectedProject(project);
+    if (project.reviews) {
+      console.log(project.reviews[0].feedback);
+      setReviewText(project.reviews[0].feedback);
+      setRating(project.reviews[0].rating);
+      setIsEditing(true);  // Mark as editing
+    } else {
+      setReviewText("");
+      setRating(0);
+      setIsEditing(false);  // Mark as adding new review
+    }
     setReviewModal(true);
   };
 
@@ -100,7 +161,8 @@ const ProfilePage = () => {
     setReviewModal(false);
     setSelectedProject(null);
     setReviewText("");
-    setRating(0); // Reset the rating when closing the modal
+    setRating(0);
+    setIsEditing(false); // Reset editing state
   };
 
   if (error) {
@@ -144,46 +206,44 @@ const ProfilePage = () => {
           </div>
 
           {/* Right side: Projects */}
-        {/* Right side: Projects */}
-  {projects.length > 0 ? (
-<div className="col-span-2 sm:col-span-1">
-    <div className="grid grid-cols-1  gap-2">
-    <h2 className="text-[1.6rem] font-semibold bg-white text-[#a9b0bc] rounded-lg p-2 mb-2">Projects</h2>
-    {projects.map((project) => (
-        <div key={project._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
-          <h3 className="text-xl font-semibold text-[#ba87d3] mb-4">{project.projectName}</h3>
-          <p className="text-[#9ca3af] mb-4">{project.description}</p>
-          <button
-            onClick={() => openReviewModal(project)}
-            className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
-          >
-            Add Review
-          </button>
-        </div>
-      ))}
-    </div>
-    </div>
-  ) : (
-    <div className="col-span-2">
-    <div className="flex justify-center items-center flex-col w-full h-full">
-      <p className="text-xl text-center text-[#9CA3AF] mb-4">No projects yet</p>
-      <button
-        onClick={() => navigate("/get-started")}
-        className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
-      >
-        Get Started - Book a Call
-      </button>
-    </div>
-    </div>
-  )}
-
+          {projects.length > 0 ? (
+            <div className="col-span-2 sm:col-span-1">
+              <div className="grid grid-cols-1 gap-2">
+                <h2 className="text-[1.6rem] font-semibold bg-white text-[#a9b0bc] rounded-lg p-2 mb-2">Projects</h2>
+                {projects.map((project) => (
+                  <div key={project._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
+                    <h3 className="text-xl font-semibold text-[#ba87d3] mb-4">{project.projectName}</h3>
+                    <p className="text-[#9ca3af] mb-4">{project.description}</p>
+                    <button
+                      onClick={() => openReviewModal(project)}
+                      className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+                    >
+                      {project.reviews ? "show Review" : "Add Review"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="col-span-2">
+              <div className="flex justify-center items-center flex-col w-full h-full">
+                <p className="text-xl text-center text-[#9CA3AF] mb-4">No projects yet</p>
+                <button
+                  onClick={() => navigate("/get-started")}
+                  className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+                >
+                  Get Started - Book a Call
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Review Modal */}
         {reviewModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
-              <h2 className="text-2xl font-bold text-[#6B7280] mb-4">Write a Review for {selectedProject.name}</h2>
+              <h2 className="text-2xl font-bold text-[#6B7280] mb-4">{isEditing ? "Edit Your Review" : "Write a Review"}</h2>
 
               {/* Star Rating */}
               <div className="flex mb-4">
@@ -208,14 +268,24 @@ const ProfilePage = () => {
                 className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
                 placeholder="Write your review here..."
                 rows="5"
+                disabled={!isEditing} // Disable if not editing
               ></textarea>
               <div className="flex justify-between">
-                <button
-                  onClick={handleSubmitReview}
-                  className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
-                >
-                  Submit Review
-                </button>
+                {isEditing ? (
+                  <button
+                    onClick={handleSubmitReview}
+                    className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+                  >
+                    Update Review
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmitReview}
+                    className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+                  >
+                    Submit Review
+                  </button>
+                )}
                 <button
                   onClick={closeReviewModal}
                   className="px-6 py-2 bg-gray-100 rounded-full text-[#D5A0EF] shadow-lg hover:bg-gray-700 transition-all"
