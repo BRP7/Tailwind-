@@ -37,9 +37,14 @@ input:-webkit-autofill::first-line, textarea:-webkit-autofill::first-line {
   } */
   body {
     @apply font-space bg-lightGray text-grayBlue;
-    background-color: #F3F4F6;
+    /* background-color: #F3F4F6; */
+    background-color: #efe7e7;
   }
   
+  .main-heading-glow{
+    text-shadow: "0 0 15px #ffffff, 0 0 30px #ffffff"
+
+  }
 
   /* Add custom utilities if needed */
 .blur-effect {

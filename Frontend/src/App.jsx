@@ -63,6 +63,7 @@ import Portfolio from "./Components/Portfolio";
 // import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Rating from "./Components/Rating";
+import GetStartedPage from "./Components/GetStartedPage";
 import LoginRegisterPage from "./Components/LoginRegisterPage";
 import ProfilePage from "./Components/ProfilePage"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -70,39 +71,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 
 export default function App(){
-
-  const testimonials = [
-    {
-      image: "myimag.png",
-      projectName: "Project One",
-      rating: "⭐⭐⭐⭐⭐",
-      feedback: "This project is amazing! Highly recommend.",
-    },
-    {
-      image: "myimag.png",
-      projectName: "Project Two",
-      rating: "⭐⭐⭐⭐",
-      feedback: "Great experience working on this!",
-    },
-    {
-      image: "myimag.png",
-      projectName: "Project Three",
-      rating: "⭐⭐⭐⭐⭐",
-      feedback: "Exceeded all my expectations!",
-    },
-    {
-      image: "myimag.png",
-      projectName: "Project Four",
-      rating: "⭐⭐⭐⭐⭐",
-      feedback: "Wonderful collaboration, loved the result!",
-    },
-    {
-      image: "myimag.png",
-      projectName: "Project Five",
-      rating: "⭐⭐⭐⭐",
-      feedback: "Really good work and easy to communicate!",
-    },
-  ];
 
   return(
     <>
@@ -112,6 +80,7 @@ export default function App(){
         <Route path="/login" element={<LoginRegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/" element={<Normal />} />
+        <Route path="/get-started" element={<GetStartedPage />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} /> */}
