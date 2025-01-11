@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const authRoutes = require("./routes/auth");
 const projectRoutes = require("./routes/project");
 const connectDB = require('./db/connectDB.js');
+const Project = require('./models/Project.js');
 
 dotenv.config();
 
@@ -33,6 +34,46 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+
+app.post("/send-bookcall", (req, res) => {
+  const { name, email, phone, selectedDate, location, selectedTime, country, additionalInfo } = req.body;
+
+  if (!name || !email || !phone || !selectedDate || !location || !selectedTime) {
+    return res.status(400).send("All required fields must be filled.");
+  }
+  console.log(req.body);
+
+  const mailOptions = {
+    from: email, // Email from which it will be sent
+    to: process.env.EMAIL_USER,   // Recipient email (you can set it to any email)
+    replyTo: email,
+    subject: `Booking Request from ${name}`, // Subject of the email
+    text: `
+      You have received a new booking request!
+
+      Name: ${name}
+      Email: ${email}
+      Phone: ${phone}
+      Selected Date: ${selectedDate}
+      Location: ${location}
+      Selected Time: ${selectedTime}
+      Country: ${country || 'N/A'}
+      Additional Information: ${additionalInfo || 'N/A'}
+    `, // Email body with the form data
+    replyTo: email, // Reply to the sender's email
+  };
+
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).send("Error sending email: " + error.message);
+    }
+    console.log('Email sent: ' + info.response);
+    res.status(200).send("Email sent successfully!");
+  });
+})
+
 
 app.post("/send-email", (req, res) => {
   const { name, email, message } = req.body;
