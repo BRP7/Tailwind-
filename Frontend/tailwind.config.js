@@ -41,8 +41,8 @@ module.exports = {
 },
 
         ".glow-shadow": {
-  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(128, 0, 128, 0.5)",
-},
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(217, 186, 233, 0.5)",
+        },
 
         // ".glow-shadow": {
         //   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 255, 255, 0.5)",
