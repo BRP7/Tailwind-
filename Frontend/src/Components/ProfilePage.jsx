@@ -138,9 +138,9 @@ const ProfilePage = () => {
         <p className="text-lg leading-relaxed text-center mb-8">Welcome back! Here's your profile information and projects.</p>
 
         {/* Profile Content */}
-        <div className="flex space-x-8">
-          {/* Left side: Profile */}
-          <div className="w-1/3 flex flex-col items-center space-y-6">
+        <div className="flex justify-between w-full space-x-6">
+        {/* Left side: Profile */}
+          <div className="w-1/3 flex flex-col items-center  justify-between space-y-6">
             <img
               src={userData.profileImage || "https://via.placeholder.com/150"}
               alt="User Profile"
@@ -152,8 +152,8 @@ const ProfilePage = () => {
           </div>
 
           {/* Right side: Projects */}
-          <div className="w-2/3">
-            <h2 className="text-3xl font-bold text-[#D5A0EF] mb-6">Projects You Worked On</h2>
+          <div className="w-1/3">
+            <h2 className="text-3xl font-bold text-center text-[#787C97] mb-6">Projects</h2>
             {projects.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((project) => (
@@ -171,7 +171,7 @@ const ProfilePage = () => {
               </div>
             ) : (
               <div className="text-center mt-10">
-                <p className="text-xl text-gray-500 mb-4">No projects yet</p>
+                <p className="text-xl text-[#9CA3AF] mb-4">No projects yet</p>
                 <button onClick={() => navigate("/get-started")} className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all">
                   Get Started - Book a Call
                 </button>
