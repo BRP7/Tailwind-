@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 const GetStartedPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(""); // New state for phone number
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (!name || !email) {
+    if (!name || !email || !phone) {
       setError("Please fill in all fields.");
       return;
     }
@@ -19,8 +20,8 @@ const GetStartedPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full p-10 rounded-xl shadow-2xl bg-white relative">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="max-w-2xl w-full p-10 rounded-xl shadow-2xl bg-white relative">
         {/* Close Button */}
         <button
           onClick={() => navigate("/")}
@@ -41,38 +42,55 @@ const GetStartedPage = () => {
           </div>
         )}
 
-        {/* Form Card */}
-        <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-gray-50 rounded-lg shadow-lg">
-          <label className="text-md text-[#9ca3af] mb-2" htmlFor="name">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
-            placeholder="Enter your full name"
-          />
+        {/* Centered Card */}
+        <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-gray-50 rounded-lg shadow-lg w-full max-w-md">
+            {/* Hidden Label using sr-only class */}
+            <label className="text-md text-[#9ca3af] mb-2 sr-only" htmlFor="name">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
+              placeholder="Enter your full name"
+            />
 
-          <label className="text-md text-[#9ca3af] mb-2" htmlFor="email">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
-            placeholder="Enter your email"
-          />
+            {/* Hidden Label using sr-only class */}
+            <label className="text-md text-[#9ca3af] mb-2 sr-only" htmlFor="email">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
+              placeholder="Enter your email"
+            />
 
-          <button
-            onClick={handleSubmit}
-            className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
-          >
-            Submit
-          </button>
+            {/* New Phone Number Field */}
+            <label className="text-md text-[#9ca3af] mb-2 sr-only" htmlFor="phone">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full p-4 border rounded-lg mb-4 border-purple-200 focus:ring-2 focus:ring-purple-300"
+              placeholder="Enter your phone number"
+            />
+
+            <button
+              onClick={handleSubmit}
+              className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>

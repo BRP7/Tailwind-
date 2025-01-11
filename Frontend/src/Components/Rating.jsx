@@ -57,13 +57,13 @@ const Rating = () => {
     <div
       className="min-h-screen justify-center m-8 p-8"
       style={{
-        textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)",
+        textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.2)",
       }}
     >
       <h1
         className="text-5xl font-bold text-center mb-[5rem] glow-text"
         style={{
-          textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)",
+          textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.7)",
         }}
       >
         Testimonials
@@ -77,10 +77,7 @@ const Rating = () => {
         <div className="testimonial">
           <div className="flex justify-center items-center">
             <img
-              style={{
-                boxShadow: "0 4px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(128, 0, 128, 0.7)",
-              }}
-              className="rounded-full"
+              className="rounded-full glow-shadow"
               src={testimonials[0].client?.image || "default-image-path"}  // Assuming client has an image
               alt={testimonials[0].projectName}
             />
@@ -91,16 +88,13 @@ const Rating = () => {
         </div>
       ) : (
         // If there are multiple testimonials, use the slider
-        <div className="rating-slider">
+        <div className="rating-slider glow-shadow">
           <Slider {...settings}>
             {testimonials.map((testimonial, index) => (
               <div className="testimonial" key={index}>
                 <div className="flex justify-center items-center">
                   <img
-                    style={{
-                      boxShadow: "0 4px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(128, 0, 128, 0.7)",
-                    }}
-                    className="rounded-full"
+                    className="rounded-full glow-shadow"
                     src={testimonial.client?.image || "default-image-path"}  // Assuming client has an image
                     alt={testimonial.projectName}
                   />

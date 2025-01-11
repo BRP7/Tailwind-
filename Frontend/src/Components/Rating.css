@@ -13,9 +13,8 @@
     max-width: 1200px; /* Constrain on larger screens */
     margin: 0 auto;
     padding: 50px 0;
-    background-color: #F3F4F6;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(128, 0, 128, 0.5);
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(235, 163, 235, 0.5); */
     position: relative;
   }
   
@@ -32,8 +31,9 @@
     width: 150px;
     height: 150px;
     object-fit: cover;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(235, 163, 235, 0.5);
     /* border: 5px solid #E100FF; */
   }
   

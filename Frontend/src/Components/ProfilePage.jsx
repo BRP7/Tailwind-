@@ -8,7 +8,7 @@ const ProfilePage = () => {
   const [reviewModal, setReviewModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [reviewText, setReviewText] = useState("");
-  const [rating, setRating] = useState(0); // State for rating
+  const [rating, setRating] = useState(0);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -22,13 +22,12 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/auth/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
       } catch (error) {
         setError("Failed to fetch user data.");
+        navigate("/login");
         console.error("Error fetching user data:", error);
       }
     };
@@ -41,12 +40,8 @@ const ProfilePage = () => {
       const fetchUserProjects = async () => {
         try {
           const response = await axios.get("http://localhost:5000/api/projects", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            params: {
-              userId: userData._id,
-            },
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+            params: { userId: userData._id },
           });
           setProjects(response.data);
         } catch (error) {
@@ -77,14 +72,10 @@ const ProfilePage = () => {
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:5000/api/projects/${selectedProject._id}/review`,
-        { reviewText, rating }, // Send both reviewText and rating
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        { reviewText, rating },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       setReviewModal(false); // Close modal after review submission
       alert("Review submitted successfully!");
@@ -110,7 +101,7 @@ const ProfilePage = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <p className="text-xl text-red-500">{error}</p>
       </div>
     );
@@ -118,66 +109,70 @@ const ProfilePage = () => {
 
   if (!userData) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <p className="text-xl text-gray-500">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div id="profile-page" className="min-h-screen flex items-center justify-center p-8 bg-gray-100">
-      <div className="max-w-5xl w-full p-12 rounded-3xl shadow-xl border border-gray-200 glow-shadow relative">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
+      <div className="max-w-6xl w-full p-10 rounded-xl shadow-2xl bg-white relative">
         {/* Close Button */}
         <button onClick={() => navigate("/")} className="absolute top-5 right-5 text-2xl font-bold text-gray-500 hover:text-gray-700">
           &times;
         </button>
 
-        <h1 className="text-5xl font-extrabold text-center mb-6 glow-text" style={{ textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)" }}>
-          Profile
-        </h1>
-        <p className="text-lg leading-relaxed text-center mb-8">Welcome back! Here's your profile information and projects.</p>
+        <h1 className="text-4xl font-extrabold text-center text-[#787C97] mb-4">Profile</h1>
+        <p className="text-lg leading-relaxed text-center mb-8 text-[#9ca3af]">Welcome back! Here's your profile and projects.</p>
 
-        {/* Profile Content */}
-        <div className="flex justify-between w-full space-x-6">
-        {/* Left side: Profile */}
-          <div className="w-1/3 flex flex-col items-center  justify-between space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Left side: User Profile */}
+          <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-gray-50 rounded-lg shadow-lg">
             <img
               src={userData.profileImage || "https://via.placeholder.com/150"}
               alt="User Profile"
-              className="rounded-full w-40 h-40 object-cover border-4 border-[#D5A0EF] shadow-xl"
+              className="rounded-full w-32 h-32 object-cover glow-shadow "
             />
-            <h2 className="text-3xl font-extrabold text-center text-[#787C97]">{userData.name}</h2>
-            <p className="text-lg text-center text-gray-400 mb-0">{userData.email}</p>
-            <p className="text-lg text-center text-gray-400 mt-0">Member since: {new Date(userData.createdAt).toLocaleDateString()}</p>
+            <h2 className="text-2xl font-bold text-[#787C97]">{userData.name}</h2>
+            <p className="text-md text-[#9ca3af]">{userData.email}</p>
+            <p className="text-md text-[#9ca3af]">Member since: {new Date(userData.createdAt).toLocaleDateString()}</p>
           </div>
 
           {/* Right side: Projects */}
-          <div className="w-1/3">
-            <h2 className="text-3xl font-bold text-center text-[#787C97] mb-6">Projects</h2>
-            {projects.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects.map((project) => (
-                  <div key={project._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
-                    <h3 className="text-xl font-semibold text-[#D5A0EF] mb-4">{project.name}</h3>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
-                    <button
-                      onClick={() => openReviewModal(project)}
-                      className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
-                    >
-                      Add Review
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center mt-10">
-                <p className="text-xl text-[#9CA3AF] mb-4">No projects yet</p>
-                <button onClick={() => navigate("/get-started")} className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all">
-                  Get Started - Book a Call
-                </button>
-              </div>
-            )}
-          </div>
+        {/* Right side: Projects */}
+  {projects.length > 0 ? (
+<div className="col-span-2 sm:col-span-1">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 className="text-3xl font-semibold text-[#D5A0EF] mb-6">Projects</h2>
+      {projects.map((project) => (
+        <div key={project._id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105">
+          <h3 className="text-xl font-semibold text-[#D5A0EF] mb-4">{project.name}</h3>
+          <p className="text-gray-600 mb-4">{project.description}</p>
+          <button
+            onClick={() => openReviewModal(project)}
+            className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+          >
+            Add Review
+          </button>
+        </div>
+      ))}
+    </div>
+    </div>
+  ) : (
+    <div className="col-span-2">
+    <div className="flex justify-center items-center flex-col w-full h-full">
+      <p className="text-xl text-center text-[#9CA3AF] mb-4">No projects yet</p>
+      <button
+        onClick={() => navigate("/get-started")}
+        className="px-6 py-2 bg-[#D5A0EF] rounded-full shadow-lg hover:bg-[#e1b6f7] transition-all"
+      >
+        Get Started - Book a Call
+      </button>
+    </div>
+    </div>
+  )}
+
         </div>
 
         {/* Review Modal */}

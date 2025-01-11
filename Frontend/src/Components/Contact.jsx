@@ -48,7 +48,7 @@ const Contact = () => {
       className="min-h-screen flex items-center justify-center p-8"
     >
       <div className="max-w-5xl w-full p-12 rounded-3xl shadow-xl border border-gray-200 glow-shadow relative">
-        <h1 className="text-5xl font-extrabold text-center mb-6 glow-text"  style={{textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)"}}>
+        <h1 className="main-heading-glow text-5xl font-extrabold text-center mb-6 glow-text"  style={{textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.7)"}}>
           Contact NxtSite
         </h1>
         <p className="text-lg leading-relaxed text-center  mb-8">
@@ -64,7 +64,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full p-4 rounded-xl bg-white  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
+              className="w-full p-4 rounded-xl bg-[#e1dde8]  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
               required
             />
           </div>
@@ -75,7 +75,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full p-4 rounded-xl bg-white  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
+              className="w-full p-4 rounded-xl bg-[#e1dde8]  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF] "
               required
             />
           </div>
@@ -85,7 +85,7 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Your Message"
-              className="w-full p-4 rounded-xl bg-white  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
+              className="w-full p-4 rounded-xl bg-[#e1dde8]   placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D5A0EF]"
               required
             />
           </div>

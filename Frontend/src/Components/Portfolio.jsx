@@ -22,13 +22,13 @@ const Portfolio = ({ isVisible }) => {
   return (
     <div
       id="portfolio"
-      className={`min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden transition-colors duration-700 ${
-        isVisible ? "bg-gradient-to-br from-white to-gray-100" : "bg-gray-100"
+      className={`min-h-screen flex flex-col items-center justify-center p-8 relative overflow-hidden transition-colors duration-900 ${
+        isVisible ? "bg-gradient-to-br from-white to-[#1a1a1a]" : "bg-[#1a1a1a]"
       }`}
     >
       {/* Header */}
-      <h1 className="text-5xl font-bold text-center mb-[24vh] glow-text" style={{
-        textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.9)",
+      <h1 className="main-heading-glow text-5xl font-bold text-center mb-[24vh] glow-text" style={{
+        textShadow: "0 4px 35px rgba(0, 0, 0, 0.2), 0 0 50px rgba(128, 0, 128, 0.7)",
       }}>
         Portfolios
       </h1>

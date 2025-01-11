@@ -1,6 +1,6 @@
 // // import { useState } from "react";
-// import React ,{useState,useEffect} from "react";
-// import { Link, useHref } from "react-router-dom";
+import React ,{useState,useEffect} from "react";
+import { Link, useHref } from "react-router-dom";
 
 
 // // function Navbar() {
@@ -393,7 +393,7 @@ function Navbar() {
     >      <ul className="flex space-x-6 text-lg">
         {/* About link */}
         <li
-          className="transition-all px-4 py-2 rounded"
+          className=" transition-all px-4 py-2 rounded"
           style={{
             textShadow: "0 0 15px #d5a0ef, 0 0 30px #d5a0ef", // Default white glow
           }}
