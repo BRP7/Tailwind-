@@ -6,19 +6,45 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,  // A Project must have a client (user)
+      required: true,
     },
     image: {
       type: String,
-      required: true,
+      required: false, // Optional image field
     },
     reviews: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Review",
+      required: false, // Optional reviews field
     }],
+    status: {
+      type: String,
+      enum: ["Not Started", "In Progress", "Completed", "On Hold"],
+      default: "Not Started", // Default status is 'Not Started'
+    },
+    startDate: {
+      type: Date,
+      required: false, // Optional field for when the project started
+    },
+    endDate: {
+      type: Date,
+      required: false, // Optional field for when the project ended
+    },
+    tags: [{
+      type: String,
+      required: false, // Optional array of tags to categorize the project
+    }],
+    budget: {
+      type: Number,
+      required: false, // Optional field for project budget or cost
+    },
   },
   { timestamps: true }
 );
