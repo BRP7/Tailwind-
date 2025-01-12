@@ -62,10 +62,10 @@ const Portfolio = ({ isVisible }) => {
               {/* Project Title and Client Name - Aligned center with same font size */}
               <div className="flex flex-col md:flex-row justify-center items-center font-extrabold text-gray-600 mb-4">
     {/* Project Name */}
-    <h2 className="text-2xl md:text-3xl mb-2 md:mb-0 md:mr-4">
-      {project.projectName}
+    <h2 className="text-2xl md:text-3xl mb-2 md:mb-0">
+      {project.projectName} 
     </h2>
-
+    <span className="hidden md:inline-block mx-2">|</span>
     {/* Client Name */}
     <p className="text-2xl md:text-3xl">
       {project.client ? project.client.name : "Client info not available"}
