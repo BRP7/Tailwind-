@@ -2,12 +2,12 @@ import React from "react";
 
 function Landing() {
   return (
-    <div id="home"
-      className="h-screen bg-cover bg-center flex items-center justify-center"
-      style={{
-        backgroundImage: "url('/image.jpg')",
-      }}
-    >
+    <div className="flex items-center justify-center overflow-hidden">
+      <img
+        src="/image.jpg"
+        alt="Landing"
+        className="w-screen h-auto" // Ensures image takes full width and adjusts height proportionally
+      />
     </div>
   );
 }
